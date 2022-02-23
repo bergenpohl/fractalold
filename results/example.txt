@@ -1,0 +1,55 @@
+./Fractal --manual 12000 12000 -0.212951099162 -0.863745936116 0.000000110428 0.000000110428 --onlysave
+
+Waring: Image width/height is 12000
+This program does not use your GPU. Add this feature for your specific GPU and Operating System to dramatically speed up creation
+
+int             mandelbrot(long double c, long double di) {
+        long double     a, bi;
+        long double     tmp;
+        int res;
+        int     i;
+
+        a = 0;
+        bi = 0;
+        res = 0;
+        while (a < 2 && res < 256) {
+                i = 0;
+                while (i < 4) {
+                        tmp = a;
+                        a = a * a + bi * bi * -1;
+                        bi = tmp * bi * 2;
+                        ++i;
+                }
+                a += c;
+                bi += di;
+                ++res;
+        }
+        return (res);
+}
+
+int		color_rain(int i)
+{
+	int rv;
+	
+	if (i == 256)
+		return (0);
+	if (i % 24 < 8)
+	{
+		rv = ((i % 8) * 32) << 16;
+		rv += (207 + (i % 16) * 3) << 8;
+		rv += 204;
+	}
+	else if (i % 24 < 16)
+	{
+		rv = ((i % 16) * 16) << 16;
+		rv += (220 + (i % 16) * 3);
+		rv += 190 << 8;
+	}
+	else
+	{
+		rv = ((i % 16) * 16);
+		rv += (207 + (i % 16) * 3) << 16;
+		rv += 120 << 8;
+	}
+	return (rv);
+}
